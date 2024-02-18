@@ -15,8 +15,8 @@
 
 ### Целевая аудитория:
 - [2.70 b аудитория в месяц](https://www.globalmediainsight.com/blog/youtube-users-statistics/)
-- [Пользователи по странам](https://www.statista.com/topics/2019/youtube/#topicOverview)
 - [95.5 m аудитория в Росси в месяц (по статистике с mediascope)](https://mediascope.net/data/#internet)
+- [Пользователи по странам](https://www.statista.com/topics/2019/youtube/#topicOverview)
 
 | Страна    |  Кол-во пользователей (миллинов)  |
   |-----------|:---------------------------------:|
