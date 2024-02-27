@@ -50,7 +50,7 @@
 #### Россия:
     MAU_RUSSIA = 95.5 млн
     DAU_RUSSIA = MAU_RUSSIA * DAU_MAU = 14.3 MAU
-#### Южной Азии
+#### Южная Азия
     MAU_INDIA = 462 млн
     MAU_PAKISTAN = 71.7 млн
     DAU_SOUTH_ASIA = (MAU_INDIA + MAU_PAKISTAN) * DAU_MAU = 80 MAU
@@ -65,53 +65,53 @@
 
 ## 2.1 Продуктовые метрики
 
-| Действие пользователя                 | Кол-во (млн) |
-|---------------------------------------|:------------:|
-| DAU_AUTH_RUS                          |     42.9     |
-| DAU_AUTH_SOUTH_ASIA                   |     240      |
-| DAU_AUTH_NORTH_AMERICA                |    144.9     |
-| DAU_AUTH_SOUTH_AMERICA                |     64.8     |
-| DAU_AUTH_WORLD                        |    492.6     |
-| -                                     |      -       |
-| MAU_VIEWS_RUSSIA                      |     336      |
-| MAU_VIEWS_SOUTH_ASIA                  |     1420     |
-| MAU_VIEWS_NORTH_AMERICA               |     374      |
-| DAU_VIEWS_SOUTH_AMERICA               |     217      |
-| -                                     |      -       |
-| MAU_COMMENT_RUSSIA                    |    0.644     |
-| MAU_COMMENT_SOUTH_ASIA                |    2.687     |
-| MAU_COMMENT_NORTH_AMERICA             |    0.717     |
-| MAU_COMMENT_SOUTH_AMERICA             |    0.520     |
-| -                                     |      -       |
-| MAU_LIKE_RUSSIA                       |    15.272    |
-| MAU_LIKE_SOUTH_ASIA                   |    64.545    |
-| MAU_LIKE_NORTH_AMERICA                |      17      |
-| MAU_LIKE_SOUTH_AMERICA                |    9.863     |
-| -                                     |      -       |
-| MAU_SUBSCRIBES_RUSSIA                 |     16.8     |
-| MAU_SUBSCRIBES_SOUTH_ASIA             |      71      |
-| MAU_SUBSCRIBES_NORTH_AMERICA          |     18.7     |
-| MAU_SUBSCRIBES_SOUTH_AMERICA          |    10.85     |
-| -                                     |      -       |
-| MAU_PAGE_SUB_RUSSIA                   |     3.36     |
-| MAU_PAGE_SUB_SOUTH_ASIA               |     14.2     |
-| MAU_PAGE_SUB_NORTH_AMERICA            |     3.74     |
-| MAU_PAGE_SUB_SOUTH_AMERICA            |     2.71     |
-| -                                     |      -       |
-| MAU_PAGE_MAIN_RUSSIA                  |     3861     |
-| MAU_PAGE_SUB_SOUTH_ASIA               |     2160     |
-| MAU_PAGE_SUB_NORTH_AMERICA            |    13041     |
-| MAU_PAGE_SUB_SOUTH_AMERICA            |     5832     |
-| -                                     |      -       |
-| DAU_SEARCH_RUS                        |    304.5     |
-| DAU_SEARCH_SOUTH_ASIA                 |    1704.5    |
-| DAU_SEARCH_NORTH_AMERICA              |    1030.2    |
-| DAU_SEARCH_SOUTH_AMERICA              |    460.8     |
-| -                                     |      -       |
-| MAU_VIDEO_DAY_DOWNLOAD_RUS            |     9.6      |
-| MAU_VIDEO_DAY_DOWNLOAD_SOUTH_ASIA     |    53.944    |
-| MAU_VIDEO_DAY_DOWNLOAD_NORTH_AMERICA  |    32.898    |
-| MAU_VIDEO_DAY_DOWNLOAD_SOUTH_AMERICA  |    14.621    |
+| Действие пользователя                | Кол-во (млн) |
+|--------------------------------------|:------------:|
+| DAU_AUTH_RUS                         |     42.9     |
+| DAU_AUTH_SOUTH_ASIA                  |     240      |
+| DAU_AUTH_NORTH_AMERICA               |    144.9     |
+| DAU_AUTH_SOUTH_AMERICA               |     64.8     |
+| DAU_AUTH_WORLD                       |    492.6     |
+| -                                    |      -       |
+| MAU_VIEWS_RUSSIA                     |     336      |
+| MAU_VIEWS_SOUTH_ASIA                 |     1420     |
+| MAU_VIEWS_NORTH_AMERICA              |     374      |
+| MAU_VIEWS_SOUTH_AMERICA              |     217      |
+| -                                    |      -       |
+| MAU_COMMENT_RUSSIA                   |    0.644     |
+| MAU_COMMENT_SOUTH_ASIA               |    2.687     |
+| MAU_COMMENT_NORTH_AMERICA            |    0.717     |
+| MAU_COMMENT_SOUTH_AMERICA            |    0.520     |
+| -                                    |      -       |
+| MAU_LIKE_RUSSIA                      |    15.272    |
+| MAU_LIKE_SOUTH_ASIA                  |    64.545    |
+| MAU_LIKE_NORTH_AMERICA               |      17      |
+| MAU_LIKE_SOUTH_AMERICA               |    9.863     |
+| -                                    |      -       |
+| MAU_SUBSCRIBES_RUSSIA                |     16.8     |
+| MAU_SUBSCRIBES_SOUTH_ASIA            |      71      |
+| MAU_SUBSCRIBES_NORTH_AMERICA         |     18.7     |
+| MAU_SUBSCRIBES_SOUTH_AMERICA         |    10.85     |
+| -                                    |      -       |
+| MAU_PAGE_SUB_RUSSIA                  |     3.36     |
+| MAU_PAGE_SUB_SOUTH_ASIA              |     14.2     |
+| MAU_PAGE_SUB_NORTH_AMERICA           |     3.74     |
+| MAU_PAGE_SUB_SOUTH_AMERICA           |     2.71     |
+| -                                    |      -       |
+| MAU_PAGE_MAIN_RUSSIA                 |     3861     |
+| MAU_PAGE_MAIN_SOUTH_ASIA             |    21600     |
+| MAU_PAGE_MAIN_NORTH_AMERICA          |    13041     |
+| MAU_PAGE_MAIN_SOUTH_AMERICA          |     5832     |
+| -                                    |      -       |
+| DAU_SEARCH_RUS                       |    304.5     |
+| DAU_SEARCH_SOUTH_ASIA                |    1704.5    |
+| DAU_SEARCH_NORTH_AMERICA             |    1030.2    |
+| DAU_SEARCH_SOUTH_AMERICA             |    460.8     |
+| -                                    |      -       |
+| MAU_VIDEO_DAY_DOWNLOAD_RUS           |     9.6      |
+| MAU_VIDEO_DAY_DOWNLOAD_SOUTH_ASIA    |    53.944    |
+| MAU_VIDEO_DAY_DOWNLOAD_NORTH_AMERICA |    32.898    |
+| MAU_VIDEO_DAY_DOWNLOAD_SOUTH_AMERICA |    14.621    |
 
 ### 2.1.1 Расчет продуктовых метрик
 - DAU 14.3 миллионов
@@ -256,7 +256,7 @@ DAU_SEARCH_SOUTH_AMERICA = 13.2% * DAU_SEARCH_WORLD = 460.8 млн
 - Каждый день на ютуб загружается 720_000 часов видео [[5](https://bloggingwizard.com/youtube-statistics/#:~:text=That%E2%80%99s%2030%2C000%20hours%20of%20video%20uploaded%20every%20hour%2C%20720%2C000%20uploaded%20every%20day%2C%205.04%20million%20uploaded%20every%20week%2C%2021.9%20million%20uploaded%20every%20month%20and%20262.8%20million%20uploaded%20every%20year.)] ```TOTAL_TIME_DAY_HOURS = 720_000 часов```
 - Зная, что ролик в среднем длится 11.7 минут [[6](https://www.globalmediainsight.com/blog/youtube-users-statistics/#:~:text=According%20to%20Statista%2C%20the%20average%20length%20of%20a%20YouTube%20video%20is%20around%2011.7%20minutes.)] ```AVERAGE_TIME_VIDEO = 11.7 минут```
 - Кол-во роликов ```COUNT_VIDEO_DAY_WORLD = TOTAL_TIME_DAY_HOURS * 60 / AVERAGE_TIME_VIDEO = 3_692_307```
-- Рассчитаю для регионов основывась на полученных данных по процентному соотношению dau:
+- Рассчитаю для регионов основываясь на полученных данных по процентному соотношению dau:
 ```
 DAU_VIDEO_DAY_DOWNLOAD_RUS = COUNT_VIDEO_DAY_WORLD * 8.7% = 321_230
 MAU_VIDEO_DAY_DOWNLOAD_RUS = DAU_VIDEO_DAY_DOWNLOAD_RUS * MOUNTH = 9_636_900
@@ -270,3 +270,155 @@ MAU_VIDEO_DAY_DOWNLOAD_NORTH_AMERICA = COUNT_VIDEO_DAY_WORLD * MOUNTH = 32_898_4
 DAU_VIDEO_DAY_DOWNLOAD_SOUTH_AMERICA = COUNT_VIDEO_DAY_WORLD * 13.2% = 487_384
 MAU_VIDEO_DAY_DOWNLOAD_SOUTH_AMERICA = DAU_VIDEO_DAY_DOWNLOAD_SOUTH_AMERICA* MOUNTH =  14_621_520
 ```
+
+## 2.2 Технические метрики
+
+### 2.2.1 Сводные таблицы технических метрик
+
+| Хранение данных                      | Увелечение ежегодно ПБ |
+|--------------------------------------|:----------------------:|
+| Видео (Россия)                       |         +725.4         |
+| Видео (Южная Азия)                   |         +4056          |
+| Видео (Северная Америка)             |         +2474          |
+| Видео (Южная Америка)                |         +1099          |
+| Пользователь (Россия)                |           2            |      
+| Пользователь (Южная Азия)            |           2            |      
+| Пользователь (Северная Америка)      |           7            |      
+| Пользователь (Южная Америка)         |           3            |      
+
+### 2.2.2 Расчет технических метрик
+#### 2.2.2.1 Хранилище
+
+**Видео**:
+- Сейчас большинство роликов на ютубе имеют разрешение 1080 p 
+-  Будем хранить все варианты разрешений [[7](https://support.google.com/youtube/answer/1722171?hl=en#zippy=%2Cframe-rate%2Cbitrate%2Cvideo-codec-h%2Cvideo-resolution-and-aspect-ratio%2Ccolor-space)]
+```
+  2160p (4K) - 40 Mbps
+  1440p (2K) - 16 Mbps
+  1080p - 8 Mbps
+  720p - 5 Mbps
+  480p - 2.5 Mbps
+  360p - 1 Mbps
+  
+```
+- Также ютуб позволяет добавлять превью к видео размером до 2 мб.
+- Используя продуктовые данные, рассчитаю статистику по регионам:
+```
+Россия:
+Кол-во загрузок в день: (DAU_VIDEO_DAY_DOWNLOAD_RUS * AVERAGE_TIME_VIDEO * SECOND) * (8 + 5 + 2.5 + 1 + 2) / 8 / 1024 = 509.254 тыс. Гб
+Кол-во в год: 509.254 * 365 = 186 ПБ память для хранение роликов. Также нужно хранить резервную копию, будем хранить 2 копии: 558 пб
+Также некоторые пользователи загружают ролики в качесте 4k. Т.к. их кол-во намного меньше чем 1080, то увеличим размер хранилище на 30%
+Итоговый результат 725.4 ПБ
+```
+```
+Южная Азия
+Кол-во загрузок в день: ((DAU_VIDEO_DAY_DOWNLOAD_SOUTH_ASIA * AVERAGE_TIME_VIDEO * SECOND) * (8 + 5 + 2.5 + 1 + 2) / 8 / 1024) = 2 850 661 ГБ
+Кол-во загрузок в год: 4056 ПБ
+```
+```
+Северная Америка:
+Кол-во загрузок в день: ((DAU_VIDEO_DAY_DOWNLOAD_NORTH_AMERICA * AVERAGE_TIME_VIDEO * SECOND) * (8 + 5 + 2.5 + 1 + 2) / 8 / 1024) = 1 738 493 ГБ
+Кол-во загрузок в год: 2474 ПБ
+```
+```
+Южная Америка
+Кол-во загрузок в день: ((DAU_VIDEO_DAY_DOWNLOAD_SOUTH_AMERIC * AVERAGE_TIME_VIDEO * SECOND) * (8 + 5 + 2.5 + 1 + 2) / 8 / 1024) = 772 663 ГБ
+Кол-во загрузок в год: 1099 ПБ
+```
+
+**Данные пользователя**:
+
+- Данные пользователя:
+  
+  - Фото профиля 4 МБ
+  - Баннер канала 6 МБ
+  - Логотип канала 1 МБ
+```
+НА одного пользователя в России: MAU_RUSSIA * (4 + 6 + 1) МБ = 1 ПБ
+НА одного пользователя в Южной Азии: MAU_SOUTH_ASIA * (4 + 6 + 1) МБ = 5.8 ПБ
+НА одного пользователя в Северной Америке: MAU_NORTH_AMERICA * (4 + 6 + 1) МБ = 3.5 ПБ
+НА одного пользователя в Южной Америке: MAU_SOUTH_AMERICA * (4 + 6 + 1) МБ = 1.584 ПБ
+Все полученные данные умножу на 2, т.к. нужна одна копия на аккаунт
+```
+- Т.к. пользователи выставляют эти данные один раз, и при замене, старые будут удалятся, то можно считать, что в будущем эти данные не будут сильно расти.
+
+#### 2.2.2.2 Потребление трафика
+- Сетевой трафик:
+  - Суммарный суточный:
+    
+    - Загрузка видео:
+      - ```
+          В России кол-во загрузок в день: 509.254 гигабайт
+          В Южной Азии кол-во загрузок в день: 2 850 661 гигабайт
+          В Северной Америке кол-во загрузок в день: 1 738 493 ГБ
+          В Южной Америке кол-во загрузок в день: 772 663 ГБ
+        ```
+    - Отдача видео
+      - ```
+            В России кол-во загрузок за день: MAU_VIEWS_RUSSIA * 8 * AVERAGE_TIME_VIDEO * SECOND / 8 / 1024 = 230_343_750 / DAYS = 7_678_125 ГБ.
+            В Южной Азии кол-во загрузок: MAU_VIEWS_SOUTH_ASIA * 8 * AVERAGE_TIME_VIDEO * SECOND / 8 / 1024 = 32_449_218 ГБ.
+            В Северной Америке кол-во загрузок: MAU_VIEWS_NORTH_AMERICA * 8 / 8 / 1024 = 8_546_484 ГБ.
+            В Южной Америке кол-во загрузок: MAU_VIEWS_SOUTH_AMERICA * 8 / 8 / 1024 = 4_958_789 ГБ
+        ```
+    - Страницы (основная, видео, подписки):
+      
+      - html, css, js - 2 Мб
+      - Превью 2 Мб
+      - ```
+        Россия в день: (MAU_PAGE_SUB_RUSSIA + MAU_VIEWS_RUSSIA + MAU_PAGE_MAIN_RUSSIA) * 4 МБ / 8 / 1024 = 173_906 / 30 = 68_365 ГБ
+        Южная азия в день: ((MAU_PAGE_SUB_SOUTH_ASIA + MAU_VIEWS_SOUTH_ASIA + MAU_PAGE_MAIN_SOUTH_ASIA) * 4 МБ / 8 / 1024) / 30 = 374_905 ГБ
+        Северная Америка в день: (MAU_PAGE_SUB_NORTH_AMERICA + MAU_VIEWS_NORTH_AMERICA + MAU_PAGE_MAIN_NORTH_AMERICA) * 4 МБ / 8 / 1024 / 30 = 218_403 ГБ
+        Южная Америка в день: (MAU_PAGE_SUB_SOUTH_AMERICA + MAU_VIEWS_SOUTH_AMERICA + MAU_PAGE_MAIN_SOUTH_AMERICA) * 4 МБ / 8 / 1024 / 30 = 98_497 ГБ
+        ```
+  - Пиковое использование трафика:
+  - Возьмем пиковые значение, как x2 от средней за день
+    - Загрузка видео:
+      - ```
+          Россия в секунду: 509.254 * 2 / 86400 = 11.7 ГБ/c
+          Южная азия в секунду: 65.9 ГБ/c
+          Северная Америка в секунду: 40.2 ГБ/c
+          Южная Америка в секунду: 17 ГБ/с
+        ```
+    - Отдача видео:
+      - ```
+         Россия в секунду: 7_678_125 * 2 / 86400 = 177.7 ГБ/c
+         Южная азия в секунду: 751.1 ГБ/c
+         Северная Америка в секунду: 197.8 ГБ/c
+         Южная Америка в секунду: 114.8 ГБ/c
+        ```
+    - Страницы (основная, видео, подписки):
+      
+      - ```
+         Россия в секунду: 68_365 * 2 / 86400 = 1.6 ГБ/c
+         Южная азия в секунду: 8.7 ГБ/c
+         Северная Америка в секунду: 5 ГБ/c
+         Южная Америка в секунду: 2.3 ГБ/c
+        ``` 
+
+#### 2.2.2.3 RPS по типам запросов
+| Тип запроса                                          | RPS                                                 |
+|------------------------------------------------------|-----------------------------------------------------|
+| Добавление комментария(Россия)                       | `MAU_COMMENT_RUSSIA / 30 / 86400  = 1`              |
+| Добавление комментария(Южная Азия)                   | `MAU_COMMENT_SOUTH_ASIA / 30 / 86400  = 1`          |
+| Добавление комментария(Северная Америка)             | `MAU_COMMENT_NORTH_AMERICA / 30 / 86400  = 1`       |
+| Добавление комментария(Южная Америка)                | `MAU_COMMENT_SOUTH_AMERICA  / 30 / 86400 = 1`       |
+| Загрузка видеоролика на канал(Россия)                | `DAU_VIDEO_DAY_DOWNLOAD_RUS / 86400 = 4`            |
+| Загрузка видеоролика на канал(Южная Азия)            | `DAU_VIDEO_DAY_DOWNLOAD_SOUTH_ASIA / 86400 = 21`    |
+| Загрузка видеоролика на канал(Северная Америка)      | `DAU_VIDEO_DAY_DOWNLOAD_NORTH_AMERICA / 86400 = 13` |
+| Загрузка видеоролика на канал(Южная Америка)         | `DAU_VIDEO_DAY_DOWNLOAD_SOUTH_AMERICA / 86400 = 6`  |
+| Поиск(Россия)                                        | `DAU_SEARCH_RUS / 86400  = 3.5 тыс`                 |
+| Поиск(Южная Азия)                                    | `DAU_SEARCH_SOUTH_ASIA / 86400  = 19.7 тыс`         |
+| Поиск(Северная Америка)                              | `DAU_SEARCH_NORTH_AMERICA / 86400  = 11.9 тыс`      |
+| Поиск(Южная Америка)                                 | `DAU_SEARCH_SOUTH_AMERICA / 86400 = 5.3 тыс`        |
+| Добавление лайка(Россия)                             | `MAU_LIKE_RUSSIA / 30 / 86400 = 6`                  |
+| Добавление лайка(Южная Азия)                         | `MAU_LIKE_SOUTH_ASIA / 30 / 86400 = 24`             |
+| Добавление лайка(Северная Америка)                   | `MAU_LIKE_NORTH_AMERICA / 30 / 86400 = 7`           |
+| Добавление лайка(Южная Америка)                      | `MAU_LIKE_SOUTH_AMERICA / 30 / 86400 = 3`           |
+| Проверка авторизации(Россия)                         | `DAU_AUTH_RUS / 86400  = 496`                       |
+| Проверка авторизации(Южная Азия)                     | `DAU_AUTH_SOUTH_ASIA / 86400  = 2.7 тыс`            |
+| Проверка авторизации(Северная Америка)               | `DAU_AUTH_NORTH_AMERICA / 86400 = 1.6 тыс`          |
+| Проверка авторизации(Южная Америка)                  | `DAU_AUTH_SOUTH_AMERICA / 86400 = 750`              |
+| Подписка на канал(Россия)                            | `MAU_SUBSCRIBES_RUSSIA / 30 / 86400 = 6`            |
+| Подписка на канал(Южная Азия)                        | `MAU_SUBSCRIBES_SOUTH_ASIA / 30 / 86400 = 27`       |
+| Подписка на канал(Северная Америка)                  | `MAU_SUBSCRIBES_NORTH_AMERICA / 30 / 86400 = 7`     |
+| Подписка на канал(Южная Америка)                     | `MAU_SUBSCRIBES_SOUTH_AMERICA / 30 / 86400 = 4`     |
