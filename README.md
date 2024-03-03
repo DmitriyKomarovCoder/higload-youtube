@@ -32,9 +32,8 @@
 | Вьетнам   |                63                 |
 | Филиппины |               58.1                |
     
-- 122 m пользователей в день
 - средний возраст 25-34
-- Среднее время нахождение на ютубе пользователем 19 минут
+- Средняя мобильная сессия просмотра на YouTube составляет более 40 минут
 
 | Пол       | процентное соотношение |
 |-----------|:----------------------:|
@@ -44,34 +43,34 @@
 
 ### DAU по регионам:
 
-- На основе mau рассчитаем dau для регионов, предполагая, что среднее соотношение между DAU/MAU составляет ~15% [[1](https://userpilot.com/blog/dau-mau-ratio/)]. 
+- На основе mau рассчитаем dau для регионов, предполагая, что среднее соотношение между DAU/MAU составляет ~56% [[1](https://mediascope.net/data/#internet)]. 
 - Возьмем из каждого региона самые активные страны.
-```DAU_MAU = 15%```
+```DAU_MAU = 56%```
 #### Россия:
     MAU_RUSSIA = 95.5 млн
-    DAU_RUSSIA = MAU_RUSSIA * DAU_MAU = 14.3 MAU
+    DAU_RUSSIA = MAU_RUSSIA * DAU_MAU = 54.2 MAU
 #### Южная Азия
     MAU_INDIA = 462 млн
     MAU_PAKISTAN = 71.7 млн
-    DAU_SOUTH_ASIA = (MAU_INDIA + MAU_PAKISTAN) * DAU_MAU = 80 MAU
+    DAU_SOUTH_ASIA = (MAU_INDIA + MAU_PAKISTAN) * DAU_MAU = 298.8 MAU
 #### Северная Америка
     DAU_USA = 239 млн
     DAU_MEXICO = 83.1 млн
-    DAU_NORTH_AMERICA = (DAU_USA + DAU_MEXICO) * DAU_MAU = 48.3 MAU
+    DAU_NORTH_AMERICA = (DAU_USA + DAU_MEXICO) * DAU_MAU = 180.4 MAU
 #### Южная Америка
     DAU_BRAZIL = 144 млн
-    DAU_SOUTH_AMERICA = DAU_BRAZIL * DAU_MAU = 21.6 MAU
+    DAU_SOUTH_AMERICA = DAU_BRAZIL * DAU_MAU = 80.6 MAU
 ## 2. Расчет нагрузки
 
 ## 2.1 Продуктовые метрики
 
 | Действие пользователя                | Кол-во (млн) |
 |--------------------------------------|:------------:|
-| DAU_AUTH_RUS                         |     42.9     |
-| DAU_AUTH_SOUTH_ASIA                  |     240      |
-| DAU_AUTH_NORTH_AMERICA               |    144.9     |
-| DAU_AUTH_SOUTH_AMERICA               |     64.8     |
-| DAU_AUTH_WORLD                       |    492.6     |
+| DAU_AUTH_RUS                         |     54.2     |
+| DAU_AUTH_SOUTH_ASIA                  |    298.8     |
+| DAU_AUTH_NORTH_AMERICA               |    180.4     |
+| DAU_AUTH_SOUTH_AMERICA               |     80.6     |
+| DAU_AUTH_WORLD                       |     614      |
 | -                                    |      -       |
 | MAU_VIEWS_RUSSIA                     |     336      |
 | MAU_VIEWS_SOUTH_ASIA                 |     1420     |
@@ -114,13 +113,11 @@
 | MAU_VIDEO_DAY_DOWNLOAD_SOUTH_AMERICA |    14.621    |
 
 ### 2.1.1 Расчет продуктовых метрик
-- DAU 14.3 миллионов
-- MAU 95.5 миллионов
 
-### Заходов на сервис (Авторизация) DAU_AUTH:
+### Заходов на сервис (Авторизация):
 - Средняя мобильная сессия просмотра на YouTube составляет более 40 минут [[2](https://www.omnicoreagency.com/youtube-statistics/)], что указывает на то, что пользователи могут заходить на YouTube несколько раз в день, особенно на мобильных устройствах.
 - Сделаем предположение, что это число равно 
-```COUNT_AUTH_DAY = 3```,
+```COUNT_AUTH_DAY = 0.5```,
 ```MONTH = 30```.
 #### Россия:
 - ```DAU_AUTH_RUS = DAU_RUSSIA * COUNT_AUTH_DAY = 42.9 млн```
@@ -222,28 +219,28 @@
 
 ### Главная страница (Рекомендации):
 - При открытии приложение/сайта пользователь всегда попадает на главную страницу, не считая случаев, когда он переходит по ссылке на видео, поэтому можно предположить, что каждый заход на сайт это загрузка страницы рекомендаций:
-- Предположим, что пользователь заходит на сайт 3 раза в день:
-```DAY_ACTIV = 3```
+- Предположим, что пользователь заходит на сайт 4 раза в день:
+```DAY_ACTIV = 4```
 #### Россия:
-    MAU_PAGE_MAIN_RUSSIA = DAU_AUTH_RUS * DAY_ACTIV * MOUNTH = 3.861 млрд
+    MAU_PAGE_MAIN_RUSSIA = DAU_RUSSIA * DAY_ACTIV * MOUNTH = 6.504 млрд
 #### Южная Азия
-    MAU_PAGE_MAIN_SOUTH_ASIA = DAU_AUTH_SOUTH_ASIA  * DAY_ACTIV * MOUNTH = 21.6 млрд
+    MAU_PAGE_MAIN_SOUTH_ASIA = DAU_SOUTH_ASIA   * DAY_ACTIV * MOUNTH = 35.8 млрд
 #### Северная Америка
-    MAU_PAGE_MAIN_NORTH_AMERICA = DAU_AUTH_NORTH_AMERICA * DAY_ACTIV * MOUNTH = 13.041 млрд
+    MAU_PAGE_MAIN_NORTH_AMERICA = DAU_NORTH_AMERICA * DAY_ACTIV * MOUNTH = 21.648 млрд
 #### Южная Америка
-    MAU_PAGE_MAIN_SOUTH_AMERICA = DAU_AUTH_SOUTH_AMERICA * DAY_ACTIV * MOUNTH = 5.832 млрд
+    MAU_PAGE_MAIN_SOUTH_AMERICA = DAU_SOUTH_AMERICA * DAY_ACTIV * MOUNTH = 9.672 млрд
 
 ### Поиск:
-- В день происходит 3.5 млрд запросов [[4](https://www.globalmediainsight.com/blog/youtube-users-statistics/#searchstat:~:text=Every%20day%2C%20more%20than%203.5%20billion%20searches%20are%20made%20on%20YouTube.)] ```DAU_SEARCH_WORLD = 1.5 млрд```
+- В день происходит 3.5 млрд запросов [[4](https://www.globalmediainsight.com/blog/youtube-users-statistics/#searchstat:~:text=Every%20day%2C%20more%20than%203.5%20billion%20searches%20are%20made%20on%20YouTube.)] ```DAU_SEARCH_WORLD = 3.5 млрд```
 - Разобьём эти запросы по регионам:
 - Рассчитаю суммарное DAU 
-- ```DAU_TOTAL = DAU_RUSSIA + DAU_SOUTH_ASIA + DAU_NORTH_AMERICA + DAU_SOUTH_AMERICA = 164.2 млн```
+- ```DAU_TOTAL = DAU_RUSSIA + DAU_SOUTH_ASIA + DAU_NORTH_AMERICA + DAU_SOUTH_AMERICA = 614 млн```
 - Доля DAU:
 ``` 
-Россия: (14.3 млн / 164.2 млн) * 100% = 8.7%
-Южная Азия: (80 млн / 164.2 млн) * 100% = 48.7%
-Северная Америка: (48.3 млн / 164.2 млн) * 100% = 29.4%
-Южная Америка: (21.6 млн / 164.2 млн) * 100% = 13.2%
+Россия: (DAU_RUSSIA / DAU_TOTAL) * 100% = 8.7%
+Южная Азия: (DAU_SOUTH_ASIA / DAU_TOTAL) * 100% = 48.7%
+Северная Америка: (DAU_NORTH_AMERICA / DAU_TOTAL) * 100% = 29.4%
+Южная Америка: (DAU_SOUTH_AMERICA / DAU_TOTAL) * 100% = 13.2%
 ```
 - Рассчитаю DAU_SEARCH для конкретных регионов:
 ```
@@ -334,10 +331,10 @@ MAU_VIDEO_DAY_DOWNLOAD_SOUTH_AMERICA = DAU_VIDEO_DAY_DOWNLOAD_SOUTH_AMERICA* MOU
   - Баннер канала 6 МБ
   - Логотип канала 1 МБ
 ```
-НА одного пользователя в России: MAU_RUSSIA * (4 + 6 + 1) МБ = 1 ПБ
-НА одного пользователя в Южной Азии: MAU_SOUTH_ASIA * (4 + 6 + 1) МБ = 5.8 ПБ
-НА одного пользователя в Северной Америке: MAU_NORTH_AMERICA * (4 + 6 + 1) МБ = 3.5 ПБ
-НА одного пользователя в Южной Америке: MAU_SOUTH_AMERICA * (4 + 6 + 1) МБ = 1.584 ПБ
+На одного пользователя в России: MAU_RUSSIA * (4 + 6 + 1) МБ = 1 ПБ
+На одного пользователя в Южной Азии: MAU_SOUTH_ASIA * (4 + 6 + 1) МБ = 5.8 ПБ
+На одного пользователя в Северной Америке: MAU_NORTH_AMERICA * (4 + 6 + 1) МБ = 3.5 ПБ
+На одного пользователя в Южной Америке: MAU_SOUTH_AMERICA * (4 + 6 + 1) МБ = 1.584 ПБ
 Все полученные данные умножу на 2, т.к. нужна одна копия на аккаунт
 ```
 - Т.к. пользователи выставляют эти данные один раз, и при замене, старые будут удалятся, то можно считать, что в будущем эти данные не будут сильно расти.
@@ -354,11 +351,12 @@ MAU_VIDEO_DAY_DOWNLOAD_SOUTH_AMERICA = DAU_VIDEO_DAY_DOWNLOAD_SOUTH_AMERICA* MOU
           В Южной Америке кол-во загрузок в день: 772 663 ГБ
         ```
     - Отдача видео
+    - Предположим, что в среднем люди смотрят ролик в 1080p, тогда ```AVERAGE_BITRATE = 8```
       - ```
-            В России кол-во загрузок за день: MAU_VIEWS_RUSSIA * 8 * AVERAGE_TIME_VIDEO * SECOND / 8 / 1024 = 230_343_750 / DAYS = 7_678_125 ГБ.
-            В Южной Азии кол-во загрузок: MAU_VIEWS_SOUTH_ASIA * 8 * AVERAGE_TIME_VIDEO * SECOND / 8 / 1024 = 32_449_218 ГБ.
-            В Северной Америке кол-во загрузок: MAU_VIEWS_NORTH_AMERICA * 8 / 8 / 1024 = 8_546_484 ГБ.
-            В Южной Америке кол-во загрузок: MAU_VIEWS_SOUTH_AMERICA * 8 / 8 / 1024 = 4_958_789 ГБ
+            В России кол-во загрузок за день: MAU_VIEWS_RUSSIA * AVERAGE_BITRATE * AVERAGE_TIME_VIDEO * SECOND / 8 / 1024 = 230_343_750 / DAYS = 7_678_125 ГБ.
+            В Южной Азии кол-во загрузок: MAU_VIEWS_SOUTH_ASIA * AVERAGE_BITRATE * AVERAGE_TIME_VIDEO * SECOND / 8 / 1024 = 32_449_218 ГБ.
+            В Северной Америке кол-во загрузок: MAU_VIEWS_NORTH_AMERICA * AVERAGE_BITRATE / 8 / 1024 = 8_546_484 ГБ.
+            В Южной Америке кол-во загрузок: MAU_VIEWS_SOUTH_AMERICA * AVERAGE_BITRATE / 8 / 1024 = 4_958_789 ГБ
         ```
     - Страницы (основная, видео, подписки):
       
