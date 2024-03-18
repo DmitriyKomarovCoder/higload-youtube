@@ -479,7 +479,7 @@ erDiagram
         title text
         author uuid FK
         description text
-        preview_url text
+        preview_url uuid
         created date
         update date
     }
@@ -491,7 +491,7 @@ erDiagram
         password_hash string
         gender text
         country text
-        avatar_url text
+        avatar_url uuid
         birthday date
         created date
         update date
@@ -509,12 +509,12 @@ erDiagram
     }
     video_quality {
         video_id uuid PK
-        video_url_360p text
-        video_url_480p text
-        video_url_720p text
-        video_url_1080p text
-        video_url_1440p text
-        video_url_2160p text
+        video_url_360p uuid
+        video_url_480p uuid
+        video_url_720p uuid
+        video_url_1080p uuid
+        video_url_1440p uuid
+        video_url_2160p uuid
         created date
         update date
     }
