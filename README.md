@@ -429,11 +429,7 @@ MAU_VIDEO_DAY_DOWNLOAD_SOUTH_AMERICA = DAU_VIDEO_DAY_DOWNLOAD_SOUTH_AMERICA* MOU
 
 ## 3. Глобальная балансировка нагрузки
 ### Нахождение ЦОДов
-- Самый большой трафик идёт из Южной Азии, там будет находится дата-центр в Индии, чтобы обеспечить основные страны, Индия, Пакистан.
-- Также в России необходим дата центр, который будет работать, как на саму Россию, так и на страны СНГ, Европы.
-- В США и Бразилии будет расположен 3 и 4-ый дата-центр для обеспечения Северную и Южную Америку.
-
-- Есть альтернативный вариант, более приближенный к реальности, установить 25 датацентров аналогично Google "https://www.google.com/about/datacenters/locations/", убрать пару датацентров из Америке и Тайваня.
+- Установим 25 датацентров аналогично Google "https://www.google.com/about/datacenters/locations/", уберём пару датацентров из Америке и Тайваня.
 ### DNS балансировка
 - Будет использовать Latency-based DNS (AMAZON S53), в результате чего пользователю будет подбираться ближайший дата-центр, будем использовать эту технологию для глобальной балансировки.
 ### BGP Anycast
@@ -446,18 +442,12 @@ MAU_VIDEO_DAY_DOWNLOAD_SOUTH_AMERICA = DAU_VIDEO_DAY_DOWNLOAD_SOUTH_AMERICA* MOU
 ## 4. Локальная балансировка нагрузки
 ### BGP/RIP балансировка
 - В ДЦ будет стоять маршрутизаторы, с помощью BGP маршрутизации будет распределять данные на балансировщик L7.
-### L3/4 балансировщик
-- После маршрутизатора будут стоять сервера балансировки virtual server via direct routing, 
-- маршрутизатор будет отправлять на виртуальные ip адрес запрос,  балансировщик L3 будет в ethernet фрейме менять mac-адрес получателя, по загруженности серверов и отправлять его в конкретный L7 балансировщик.
-- L7 балансировщик, после обработки запроса будет отправлять данные напрямую клиентам, минуя L3/4 балансировщика.
-- Для отказоустойчивости будем использовать VRRP/СARP на балансировщиках.
-- Для отслеживания состояния L7 балансировщиков будем использовать keepalived сервис, который будем проверять состояние l7 балансировщиков и сообщать L3.
 ### L7 балансировщик
-- Будем использовать Envoy, как более современное решение чем nginx. Будет кешировать некоторые запросы, решать проблему "медленного клиента". Server mesh будет распределять запросы на сервисы (поднятые в подах kubernetes).
+- Будем использовать Envoy, как более современное решение чем nginx. Будет кешировать некоторые запросы, решать проблему "медленного клиента". Будет распределять запросы на сервисы (поднятые в подах kubernetes).
 - Проблему отказоустойчивости в рамках сервисов, будет решать kubernetes. Для балансировщиков будем использовать heartbeat linux (на каждый балансировщик).
-<!-- ### SSL termination:
+### SSL termination:
 - Будем использовать SSL Termination, чтобы снять нагрузку с серверов по расшифровке ssl, это будет делать L7 балансировщик.
-- Session cache - будет кешировать сессию. -->
+- Session cache - будет кешировать сессию.
 
 ## 5. Логическая схема БД
 
@@ -479,11 +469,15 @@ erDiagram
         title text
         author uuid FK
         description text
-        preview_url uuid
+        preview_url text
         created date
         update date
     }
-        user {
+    session {
+        user_id uuid
+        cookie string
+    }
+    user {
         id uuid PK
         username text
         login text
@@ -491,7 +485,7 @@ erDiagram
         password_hash string
         gender text
         country text
-        avatar_url uuid
+        avatar_url text
         birthday date
         created date
         update date
@@ -509,12 +503,12 @@ erDiagram
     }
     video_quality {
         video_id uuid PK
-        video_url_360p uuid
-        video_url_480p uuid
-        video_url_720p uuid
-        video_url_1080p uuid
-        video_url_1440p uuid
-        video_url_2160p uuid
+        video_url_360p chunks
+        video_url_480p chunks
+        video_url_720p chunks
+        video_url_1080p chunks
+        video_url_1440p chunks
+        video_url_2160p chunks
         created date
         update date
     }
@@ -542,6 +536,7 @@ erDiagram
     video ||--o{ like : likes
     user ||--o{ subscribe : subscribes
     user ||--o{ views : views
+    user ||--o{ session : has
     video ||--|| video_statistics : has
     video ||--|| video_quality : has
     video ||--o{ views : has
