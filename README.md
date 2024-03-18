@@ -480,7 +480,6 @@ erDiagram
         author uuid FK
         description text
         preview_url text
-        video_quality_available int
         created date
         update date
     }
@@ -504,6 +503,7 @@ erDiagram
         view_count int
         like_count int
         dislike_count int
+        video_quality_count int
         created date
         update date
     }
