@@ -1,5 +1,11 @@
 # Проектирование высоконагруженных приложений
 
+## Содержание
+* ### [Тема и целевая аудитория](#1-тема-и-целевая-аудитория)
+* ### [Расчет нагрузки](#2-расчет-нагрузки)
+* ### [Глобальная балансировка нагрузки](#3-глобальная-балансировка-нагрузки)
+* ### [Локальная балансировка нагрузки](#4-локальная-балансировка-нагрузки)
+
 ## 1. Тема и целевая аудитория
 
 ### Тема "Проектирование сервиса по типу Youtube"
@@ -452,3 +458,92 @@ MAU_VIDEO_DAY_DOWNLOAD_SOUTH_AMERICA = DAU_VIDEO_DAY_DOWNLOAD_SOUTH_AMERICA* MOU
 ### SSL termination:
 - Будем использовать SSL Termination, чтобы снять нагрузку с серверов по расшифровке ssl, это будет делать L7 балансировщик.
 - Session cache - будет кешировать сессию.
+
+## 5. Логическая схема БД
+
+```mermaid
+---
+title: Схема бд
+---
+erDiagram
+
+    like {
+        id uuid PK
+        grade bool
+        video_id uuid
+        created date
+        update date
+    }
+    video {
+        id uuid PK
+        title text
+        author uuid FK
+        description text
+        preview_url text
+        video_quality_available int
+        created date
+        update date
+    }
+        user {
+        id uuid PK
+        username text
+        login text
+        email text
+        password_hash string
+        gender text
+        country text
+        avatar_url text
+        birthday date
+        created date
+        update date
+    }
+    video_statistics {
+        id uuid PK
+        video_id uuid FK
+        comments_count int
+        view_count int
+        like_count int
+        dislike_count int
+        created date
+        update date
+    }
+    video_quality {
+        video_id uuid PK
+        video_url_360p text
+        video_url_480p text
+        video_url_720p text
+        video_url_1080p text
+        video_url_1440p text
+        video_url_2160p text
+        created date
+        update date
+    }
+    comments {
+        video_id uuid FK
+        user_id uuid FK
+        body text
+        created date
+        update date
+    }
+    subscribe {
+        author_id uuid PK
+        subsciber_id uuid
+        created date
+    }
+    views {
+        user_id uuid PK
+        video_id uuid PK
+    }
+
+    user ||--o{ video : creates
+    video ||--o{ comments : has
+    user ||--o{ comments : comments
+    user ||--o{ like : likes
+    video ||--o{ like : likes
+    user ||--o{ subscribe : subscribes
+    user ||--o{ views : views
+    video ||--|| video_statistics : has
+    video ||--|| video_quality : has
+    video ||--o{ views : has
+```
+
