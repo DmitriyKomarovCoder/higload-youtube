@@ -542,3 +542,44 @@ erDiagram
     video ||--o{ views : has
 ```
 
+### Размер данных:
+Возьму кол-во пользователей сумма mau за подсчитанные регионы MAU_WORLD = 940.5 млн * 2 = 1881 млн (чтобы учесть расширение бд) = 1881
+#### User:
+```
+16 (UUID) + 50 (username) + 50 (login) + 50 (email) + 60 (password_hash) + 8 (gender) + 50 (country) + 50 (avatar_url) + 8 (birthday) + 8 (created) + 8 (updated) = 352 байта * 1881млн = 616,6 Гб
+```
+#### Session:
+```
+16 (UUID) + 60 (cookie) = 76 байта * 1881 млн = 133,13 Гб
+```
+#### Subscribe:
+```
+16 (UUID) + 15 (UUID) + 8 (created) = 39 байта * 1881млн = 68,3 ГБ * 50 (среднее кол-во подписок на каналы) = 3415 Гб
+```
+#### Video (дополнительная информация):
+Сами ролиики буду хранить в s3 рассчет был проведен выше. Возьму за кол-во роликов, цифру рассчитанную выше COUNT_VIDEO_DAY_WORLD = 3_692_307
+```
+16 (UUID) + 50 (title) + 16 (UUID) + 500 (description) + 60 (preview_url) + 8 (created) + 8 (updated) = 658 байт * COUNT_VIDEO_DAY_WORLD = 2,3 ГБ * 30 = 69 ГБ (в месяц)
+```
+
+#### Comments:
+SUM_COMMENT = 4 570 056 (месяц)
+```
+16 (UUID) + 16 (UUID) + 500 (body) + 8 (created) + 8 (update) = 548 байт * SUM_COMMENT = 2.3 ГБ (в месяц)
+```
+#### LIKE
+SUM_LIKE = 106_681_817 (месяц)
+```
+16 (UUID) + 16 (UUID) + 1 (bool) + 8 (created) + 8 (updated) = 49 байт * SUM_LIKE =  4,8 ГБ (в месяц)
+```
+#### Video_statistics:
+```
+16 (UUID) + 16 (UUID) + 20 (суммарно int) + 8 (created) + 8 (updated) = 68 * COUNT_VIDEO_DAY_WORLD = 251_076_876 * 30 = 7.015 ГБ (в месяц)
+```
+#### Views:
+MAU_VIEWS = 2347 млн
+```
+16 (UUID) + 16 (UUID) = 32 * 2347млн = 70 ГБ (в месяц)
+```
+
+## 6. Физическая схема БД
