@@ -458,9 +458,9 @@ title: Схема бд
 erDiagram
 
     like {
-        id uuid PK
+        user_id uuid PK
+        video_id uuid PK
         grade bool
-        video_id uuid
         created date
         update date
     }
@@ -583,3 +583,34 @@ MAU_VIEWS = 2347 млн
 ```
 
 ## 6. Физическая схема БД
+
+
+### Выбор хранилища данных:
+- Для сессий использую redis(userid, cookie string), т.к. хранилище in-memory и не сильно важно целостность данных, небольшая нагрузка `session`.
+- Для видео использую MySQL Vitess, который позволяет из коробки горизонтально масштабироваться `video`, `video_quality`, `video_statistics`, `comments`, `like`, `views`, `subscibe`, `user`.
+- Видео файлы и аватарки буду хранить в [Google file system](https://habr.com/ru/articles/73673/) (либо похожие аналоги), в таблице video_quality буду хранить чанки с (размер чанка, имя файла и смещение относительно начала файла). GFS будет отвечать за сохранность данных засчет быстрых слепков, сохранение метаданных на master, и большого кол-во реплик.
+
+### Индексы
+- В таблице video:
+    - (video_id, created) B-tree
+    - (title) GIN  (для поиска)
+    - (description) GIN  (для поиска)
+- В таблице comments:
+    - (video_id, update) B-tree
+- В таблице subscibe:
+    - (author_id, created) B-tree
+- В таблице views:
+    - (user_id, video_id) B-tree
+- В таблице like:
+    - (user_id, video_id) B-tree
+
+### Денормализация
+- Объединю в одну таблицу video + video_quality + video_statistics для шардинга избавлюсь от JOIN
+- Объединю для user буду хранить его подписчиков и каналы на которые он подписан для шардинга избавлюсь от JOIN
+### Шардирование
+users по user_id
+video по video_id
+comments и views по video_id
+### Клиентские библиотеки / интеграции
+- vitessdriver https://pkg.go.dev/vitess.io/vitess/go/vt/vitessdriver
+- go-redis https://github.com/redis/go-redis
