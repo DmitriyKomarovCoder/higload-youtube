@@ -608,9 +608,9 @@ MAU_VIEWS = 2347 млн
 - Объединю в одну таблицу video + video_quality + video_statistics для шардинга избавлюсь от JOIN
 - Объединю для user буду хранить его подписчиков и каналы на которые он подписан для шардинга избавлюсь от JOIN
 ### Шардирование
-users по user_id
-video по video_id
-comments и views по video_id
+- users по user_id
+- video по video_id
+- comments и views по video_id
 ### Клиентские библиотеки / интеграции
 - vitessdriver https://pkg.go.dev/vitess.io/vitess/go/vt/vitessdriver
 - go-redis https://github.com/redis/go-redis
