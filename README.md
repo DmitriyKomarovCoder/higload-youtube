@@ -5,7 +5,10 @@
 * ### [Расчет нагрузки](#2-расчет-нагрузки)
 * ### [Глобальная балансировка нагрузки](#3-глобальная-балансировка-нагрузки)
 * ### [Локальная балансировка нагрузки](#4-локальная-балансировка-нагрузки)
+* ### [Логическая схема БД](#5-логическая-схема-бд)
+* ### [Физическая схема БД](#6-физическая-схема-бд)
 
+Физическая схема БД
 ## 1. Тема и целевая аудитория
 
 ### Тема "Проектирование сервиса по типу Youtube"
@@ -456,7 +459,12 @@ MAU_VIDEO_DAY_DOWNLOAD_SOUTH_AMERICA = DAU_VIDEO_DAY_DOWNLOAD_SOUTH_AMERICA* MOU
 title: Схема бд
 ---
 erDiagram
-
+    history {
+        user_id uuid PK
+        video_id uuid PK
+        second int
+        created date
+    }
     like {
         user_id uuid PK
         video_id uuid PK
@@ -468,6 +476,7 @@ erDiagram
         id uuid PK
         title text
         author uuid FK
+        tags array
         description text
         preview_url text
         created date
@@ -528,6 +537,8 @@ erDiagram
         user_id uuid PK
         video_id uuid PK
     }
+    user ||--o{ history : has
+    video ||--o{ history : has
 
     user ||--o{ video : creates
     video ||--o{ comments : has
@@ -554,7 +565,7 @@ erDiagram
 ```
 #### Subscribe:
 ```
-16 (UUID) + 15 (UUID) + 8 (created) = 39 байта * 1881млн = 68,3 ГБ * 50 (среднее кол-во подписок на каналы) = 3415 Гб
+16 (UUID) + 16 (UUID) + 8 (created) = 39 байта * 1881млн = 68,3 ГБ * 50 (среднее кол-во подписок на каналы) = 3415 Гб
 ```
 #### Video (дополнительная информация):
 Сами ролиики буду хранить в s3 рассчет был проведен выше. Возьму за кол-во роликов, цифру рассчитанную выше COUNT_VIDEO_DAY_WORLD = 3_692_307
@@ -603,14 +614,118 @@ MAU_VIEWS = 2347 млн
     - (user_id, video_id) B-tree
 - В таблице like:
     - (user_id, video_id) B-tree
-
+- В таблице history:
+    - (video_id, created) B-tree
 ### Денормализация
 - Объединю в одну таблицу video + video_quality + video_statistics для шардинга избавлюсь от JOIN
 - Объединю для user буду хранить его подписчиков и каналы на которые он подписан для шардинга избавлюсь от JOIN
 ### Шардирование
 - users по user_id
+```mermaid
+---
+title: шардирование
+---
+erDiagram
+    history {
+        user_id uuid PK
+        video_id uuid PK
+        second int
+        created date
+    }
+    like {
+        user_id uuid PK
+        video_id uuid PK
+        grade bool
+        created date
+        update date
+    }
+    user {
+        id uuid PK
+        username text
+        login text
+        email text
+        password_hash string
+        gender text
+        country text
+        avatar_url text
+        birthday date
+        created date
+        update date
+    }
+    comments {
+        video_id uuid FK
+        user_id uuid FK
+        body text
+        created date
+        update date
+    }
+    subscribe {
+        author_id uuid PK
+        subsciber_id uuid
+        created date
+    }
+    views {
+        user_id uuid PK
+        video_id uuid PK
+    }
+    user ||--o{ history : has
+
+    user ||--o{ video : creates
+    user ||--o{ comments : comments
+    user ||--o{ like : likes
+    user ||--o{ subscribe : subscribes
+    user ||--o{ views : views
+    user ||--o{ session : has
+```
+
 - video по video_id
-- comments и views по video_id
+```mermaid
+---
+title: Шардирование video
+---
+erDiagram
+    video {
+        id uuid PK
+        title text
+        author_name text
+        author_avatar text
+        description text
+        preview_url text
+        comments_count int
+        view_count int
+        like_count int
+        dislike_count int
+        video_quality_count int
+        video_url_360p chunks
+        video_url_480p chunks
+        video_url_720p chunks
+        video_url_1080p chunks
+        video_url_1440p chunks
+        video_url_2160p chunks
+        created date
+        update date
+    }
+   ```
 ### Клиентские библиотеки / интеграции
 - vitessdriver https://pkg.go.dev/vitess.io/vitess/go/vt/vitessdriver
 - go-redis https://github.com/redis/go-redis
+
+## 7. Алгоритмы
+
+### Рекомендации:
+- Будем анализировать просмотренные ролики history по user_id.
+- С помощью ML алгоритма будем выдавать рекомендованные ролики на главной странице.
+- Просмотренные ролики уже не будут попадаться на главной странице.
+
+### Обработка видео
+- При загрузке ролика будем хранить 6 разных форматов (2160p, 1440p, 1080p, 720p, 480p, 360p). 
+- Ролики будут разбиваться на чанки, которые будут хранится в GFS (аналоги)
+    - Позволит быстро делать снапшоты 
+    - Возможность обрабатывать большие данные, т.к. этим будут заниматься реплики, а мастер будет лишь направлять на них.
+- Будем хранить (размер чанка, имя файла и смещение относительно начала файла)
+- Ролики будут кодироваться с помощью H.264
+
+### Отправка видео
+- Будем использовать технологию адаптивного битрейта. Перед отправкой видео клиенту приходит манифест файл, который описывает доступные сегменты потока и соответствующие им скорости передачи данных. На клиенте будет происходит анализ просмотра прошлых роликов, определение сети передачи, и за счет этого клиент с сервера будет динамически запрашивать нужный ему сегмент потока.
+- Загрузка видео на cdn сервера.
+- Буду хранить в history кол-во просмотренных секунд на ролике, чтобы возвращать на нужный фрагмент ролика.
