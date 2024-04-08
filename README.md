@@ -635,12 +635,6 @@ MAU_VIEWS = 2347 млн
 title: шардирование
 ---
 erDiagram
-    history {
-        user_id uuid PK
-        video_id uuid PK
-        second int
-        created date
-    }
     like {
         user_id uuid PK
         video_id uuid PK
@@ -661,13 +655,6 @@ erDiagram
         created date
         update date
     }
-    comments {
-        video_id uuid FK
-        user_id uuid FK
-        body text
-        created date
-        update date
-    }
     subscribe {
         author_id uuid PK
         subsciber_id uuid
@@ -677,17 +664,49 @@ erDiagram
         user_id uuid PK
         video_id uuid PK
     }
-    user ||--o{ history : has
-
-    user ||--o{ video : creates
-    user ||--o{ comments : comments
     user ||--o{ like : likes
     user ||--o{ subscribe : subscribes
     user ||--o{ views : views
-    user ||--o{ session : has
 ```
+- history по user_id
+```mermaid
+---
+title: шардирование history
+---
+erDiagram
+    history {
+        id uuid PK
+        user_id uuid FK
+        video_id uuid FK
+        second int
+        created date
+    }
+```
+- comment по id(comment)
+```mermaid
+---
+title: шардирование comment
+---
+erDiagram
+    comments {
+        id uuid FK
+        video_id uuid PK
+        user_id uuid PK
+        body text
+        parent uuid
+        created date
+        update date
+    }
+    comment_like {
+        user_id uuid FK
+        comment_id uuid FK
+        grade bool
+        created date
+    }
+    comments ||--o{ comment_like : like
 
-- video по video_id
+```
+- video по id(video)
 ```mermaid
 ---
 title: Шардирование video
@@ -742,5 +761,11 @@ erDiagram
 | Технология  | Применение  | Обоснование|
 |-------------|--------------------------------|-|
 | Go          | Backend | Многопоточность, простота, бинарные файлы без зависимостей|
-| React          | Frontend | Решение вместе с redux, есть возможность хранить иноформацию. Принятое рынком и программистами решение|
-| Kafka          | Frontend | Решение вместе с redux, есть возможность хранить иноформацию. Принятое рынком и программистами решение|
+| React          | Frontend | Решение вместе с redux, есть возможность хранить состояние на клиенте. Принятое рынком и программистами решение|
+| Kafka          | Брокер сообщений | Обеспечивает сохранность сообщений, многократная повторная обработка. Ориентирован на потоковую обработку событий и обеспечивает оптимизированную обработку больших потоков данных|
+| GFS          | Объектное хранилище | Обеспечивает обработку больших объемов данных, высокая производительность и отказоустойчивость|
+| MPEG-DASH          | Стриминг | Адаптивность качества потока, поддержка различных кодеков, масштабируемость|
+| Redis         | хранение сессий | быстрый доступ к данных, масштабируемость|
+| Envoy         | локальная балансировка | более современное решение чем nginx, динамическая конфигурация, поддержка современных протоколов, отказоустойчивость, разделение трафика|
+| MySQL Vitess         | основное хранилище | Поддержка шардирования. Vitess использует Go и gRPC для внутренней коммуникации между компонентами, что позволяет легко обрабатывать тысячи клиентов одновременно. Создает очень легкие соединения, что позволяет легко обрабатывать тысячи соединений |
+| Prometheus         | сбор метрик | Высокая производительность, интеграция с графаной, поддержка алертов и уведомлений |
