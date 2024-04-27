@@ -805,7 +805,7 @@ erDiagram
 | Spark | пакетная обработка данных  | Масштабируемость, обработка данных в реальном времени и пакетном режимах, поддержка различных типов данных |
 ## 9. Схема проекта
 ![SVG Image](hiload_youtube.drawio.svg)
-Ссылка: https://drive.google.com/file/d/1i0CeNobKb54DLINhxr9bRfP_IjhZE6Zf/view?usp=sharing
+Ссылка на актуальную схему: https://drive.google.com/file/d/1i0CeNobKb54DLINhxr9bRfP_IjhZE6Zf/view?usp=sharing
 
 ## 10. Обеспечение надёжности
 ### Отказоустойчисвость БД
