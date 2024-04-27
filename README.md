@@ -442,15 +442,19 @@ MAU_VIDEO_DAY_DOWNLOAD_SOUTH_AMERICA = DAU_VIDEO_DAY_DOWNLOAD_SOUTH_AMERICA* MOU
 - Внутри регионов будем использовать BGP Anycast (будем выдавать один ip для нескольких дата-центров, отправлять пользователя к ближайшему дата-центру, cdn серверу)
 - Будем использовать CDN сервера для отдачи статики (видео, информации о пользователе). Для этого будем кэшировать ролики в дата-центрах и дальше рассылать по cdn серверам, также будем предоставлять провайдерам кэши для ускорения контента(ISP)[[8](https://youtu.be/g5v2-H-sabM?t=490)], чтобы снять нагрузку с cdn серверов.
 - Кеш сервер будет работать так, отдавать пользователю контент и в моменты минимальной нагрузки загружать с cdn серверов новый контент.
-- Кеш можно расположить по всему миру аналогично Google: 
+- Кеш можно расположить по всему миру аналогично Google:
 - ![gls7h9xb-thtnrspvjd4ghk7jfo.png](gls7h9xb-thtnrspvjd4ghk7jfo.png)
+- На каждом Цоде будет находится dummy сервер, который будет имитировать работу, также будет поднят кеш для отдачи контента.
+- Если dummy будет не способен выполнить данный запрос,то будем отправлять на ближайший доступный ЦОД.
+
 
 ## 4. Локальная балансировка нагрузки
 ### BGP/RIP балансировка
 - В ДЦ будет стоять маршрутизаторы, с помощью BGP маршрутизации будет распределять данные на балансировщик L7.
 ### L7 балансировщик
-- Будем использовать Envoy, как более современное решение чем nginx. Будет кешировать некоторые запросы, решать проблему "медленного клиента". Будет распределять запросы на сервисы (поднятые в подах kubernetes).
-- Проблему отказоустойчивости в рамках сервисов, будет решать kubernetes. Для балансировщиков будем использовать heartbeat linux (на каждый балансировщик).
+- Будем использовать Envoy, как более современное решение чем nginx. Будет кешировать некоторые запросы, решать проблему "медленного клиента". Будет распределять запросы на сервисы.
+- Для балансировщиков будем использовать heartbeat linux (на каждый балансировщик).
+- В качесте re-try стратегий будем использовать exponential backoff и jitter.
 ### SSL termination:
 - Будем использовать SSL Termination, чтобы снять нагрузку с серверов по расшифровке ssl, это будет делать L7 балансировщик.
 - Session cache - будет кешировать сессию.
@@ -547,22 +551,23 @@ erDiagram
     views {
         user_id uuid PK
         video_id uuid PK
+        created_at date
     }
     user ||--o{ history : has
     video ||--o{ history : has
     user ||--o{ comment_like : like
-    comments ||--o{ comment_like : like
+    comment ||--o{ comment_like : like
     user ||--o{ video : creates
-    video ||--o{ comments : has
-    user ||--o{ comments : comments
+    video ||--o{ comment : has
+    user ||--o{ comment : comment
     user ||--o{ like : likes
     video ||--o{ like : likes
     user ||--o{ subscribe : subscribes
-    user ||--o{ views : views
+    user ||--o{ view : views
     user ||--o{ session : has
-    video ||--|| video_statistics : has
+    video ||--|| video_statistic : has
     video ||--|| video_quality : has
-    video ||--o{ views : has
+    video ||--o{ view : has
 ```
 
 ### Размер данных:
@@ -610,7 +615,13 @@ MAU_VIEWS = 2347 млн
 
 ### Выбор хранилища данных:
 - Для сессий использую redis(userid, cookie string), т.к. хранилище in-memory и не сильно важно целостность данных, небольшая нагрузка `session`.
-- Для видео использую MySQL Vitess, который позволяет из коробки горизонтально масштабироваться `video`, `video_quality`, `video_statistics`, `comments`, `like`, `views`, `subscibe`, `user`.
+- Для видео использую MySQL Vitess, который позволяет из коробки горизонтально масштабироваться `video`, `video_quality`, `video_statistic`, `comment`, `like`, `view`, `subscibe`, `user`.
+![alt text](<0 dGqO-_hGaOC5KIqv.webp>)
+Ключевыми формирующими аспектами Vitess являются VTTablet и VTGate.
+- **VTGate** используется как легкий прокси-сервер, который направляет трафик к соответствующим серверам VTTablet и возвращает консолидированные результаты обратно клиенту. При маршрутизации запросов к соответствующим серверам VTTablet, VTGate учитывает схему шардирования, требуемую задержку и доступность таблиц и их базовых экземпляров MySQL
+- **VTTablet**, отвечает за мониторинг локального MySQL и обеспечение его оптимального состояния. Для достижения этой цели VTTablet устраняет ошибочные запросы, применяет ограничения и выполняет периодические проверки работоспособности. 
+- Управление репликацией: VTTablet может выполнять команды для управления репликацией, включая инициализацию мастера шарда, планирование переключения родителей, аварийное переключение родителей и переключение таблицы.
+- С помощью подхода описанного выше достигается горизонтальное масштабирование.
 - Видео файлы и аватарки буду хранить в [Google file system](https://habr.com/ru/articles/73673/) (либо похожие аналоги), в таблице video_quality буду хранить чанки с (размер чанка, имя файла и смещение относительно начала файла). GFS будет отвечать за сохранность данных за счет быстрых слепков, сохранение метаданных на master, и большого кол-во реплик.
 
 ### Индексы
@@ -632,19 +643,12 @@ MAU_VIEWS = 2347 млн
 - Объединю в одну таблицу video + video_quality + video_statistics для шардинга избавлюсь от JOIN
 - Объединю для user буду хранить его подписчиков и каналы на которые он подписан для шардинга избавлюсь от JOIN
 ### Шардирование
-- users по user_id
+- users по id
 ```mermaid
 ---
 title: шардирование
 ---
 erDiagram
-    like {
-        user_id uuid PK
-        video_id uuid PK
-        grade bool
-        created date
-        update date
-    }
     user {
         id uuid PK
         username text
@@ -659,13 +663,6 @@ erDiagram
         created date
         update date
     }
-
-    views {
-        user_id uuid PK
-        video_id uuid PK
-    }
-    user ||--o{ like : likes
-    user ||--o{ views : views
 ```
 - subscribe по id
 
@@ -700,7 +697,7 @@ erDiagram
 title: шардирование comment
 ---
 erDiagram
-    comments {
+    comment {
         id uuid FK
         video_id uuid PK
         user_id uuid PK
@@ -715,9 +712,27 @@ erDiagram
         grade bool
         created date
     }
-    comments ||--o{ comment_like : like
-
+    comment ||--o{ comment_like : like
 ```
+- реакция на ролик шардирование по video_id
+```mermaid
+---
+title: Шардирование view и like
+---
+erDiagram
+    like {
+        user_id uuid PK
+        video_id uuid PK
+        grade bool
+        created date
+        update date
+    }
+    view {
+        user_id uuid PK
+        video_id uuid PK
+    }
+```
+
 - video по id(video)
 ```mermaid
 ---
