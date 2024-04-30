@@ -506,7 +506,7 @@ erDiagram
         created date
         update date
     }
-    video_statistics {
+    video_statistic {
         id uuid PK
         video_id uuid FK
         comments_count int
@@ -534,7 +534,7 @@ erDiagram
         grade bool
         created date
     }
-    comments {
+    comment {
         id uuid FK
         video_id uuid PK
         user_id uuid PK
@@ -548,7 +548,7 @@ erDiagram
         subsciber_id uuid
         created date
     }
-    views {
+    view {
         user_id uuid PK
         video_id uuid PK
         created_at date
@@ -590,21 +590,21 @@ erDiagram
 16 (UUID) + 50 (title) + 16 (UUID) + 500 (description) + 60 (preview_url) + 8 (created) + 8 (updated) = 658 байт * COUNT_VIDEO_DAY_WORLD = 2,3 ГБ * 30 = 69 ГБ (в месяц)
 ```
 
-#### Comments:
+#### Comment:
 SUM_COMMENT = 4 570 056 (месяц)
 ```
 16 (UUID) + 16 (UUID) + 500 (body) + 8 (created) + 8 (update) = 548 байт * SUM_COMMENT = 2.3 ГБ (в месяц)
 ```
-#### LIKE
+#### Like
 SUM_LIKE = 106_681_817 (месяц)
 ```
 16 (UUID) + 16 (UUID) + 1 (bool) + 8 (created) + 8 (updated) = 49 байт * SUM_LIKE =  4,8 ГБ (в месяц)
 ```
-#### Video_statistics:
+#### Video_statistic:
 ```
 16 (UUID) + 16 (UUID) + 20 (суммарно int) + 8 (created) + 8 (updated) = 68 * COUNT_VIDEO_DAY_WORLD = 251_076_876 * 30 = 7.015 ГБ (в месяц)
 ```
-#### Views:
+#### View:
 MAU_VIEWS = 2347 млн
 ```
 16 (UUID) + 16 (UUID) = 32 * 2347млн = 70 ГБ (в месяц)
